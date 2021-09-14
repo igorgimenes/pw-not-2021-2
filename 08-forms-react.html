@@ -16,13 +16,46 @@
     <script type="text/babel">
 
         const MeuForm = () => {
+
+            //let nome // variavel comum
+
+            /*
+            Variavel de estado
+            é uma variavel especial que retem o seu valor mesmo quando 
+            o estado (conteudo) do componente é alterado a este é redesenhado.
+
+            Variaveis de estado são criadas com função React.useState(),
+            que retornam um vetor com dois elementos:
+            1º: a variavel de estado propriamente dita (somente leitura)
+            2ª: uma função que deverá ser usada para atualizar o valor da variavel de estado
+
+            React.useState() tem com oparamentro o valor inicial da variavel
+            de estado (é obrigatorio especificar)
+            */
+
+            const [nome, setNome] = React.useState('')
+ 
+            const handleChange = event => {
+                // nome = document.getElementById('campo-nom').value // Acesso direto
+                // nome = event.target.value //Acesso indireto
+                setNome(event.target.value)
+
+                // Modo JS puro de modificar o conteudo de um elemento
+                // com valor de um variavel
+                //document.getElementById('debug').textContent = nome.toUpperCase()
+            }
+
+            const handleSubmit = event => {
+                alert(`Olá, ${nome}!`)
+            }
+
             return (
-                <form>
+                <form onSubmit={handleSubmit}>
                     {/* Em JSX, o atributo "for" é escrito como "htmlFor" porque
                         o primeiro termo é uma palavra reservada em JavaScript */}
                     <label htmlFor="campo-nome">Informe seu nome:</label><br/>
-                    <input id="campo-nome"/><br/>
-                    <div id="debug"></div>
+                    <input id="campo-nome" onChange={handleChange}/><br/>
+                    <div id="debug">{nome.toUpperCase()}</div>
                     <button type="submit">Enviar</button>
                 </form>
             )
@@ -30,7 +63,7 @@
 
         ReactDOM.render(<MeuForm/>, document.getElementById('root'))
 
-    <script>
+    </script>
     
 </body>
 </html>
